@@ -1,7 +1,7 @@
 
-FROM nvidia/cuda:10.2-base
+FROM nvidia/cuda:11.0-base
 
-ARG PYTHON_VERSION=3.8
+ARG PYTHON_VERSION=3.9
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -27,9 +27,10 @@ RUN curl -o ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest
      mkl=2020.2 \
      mkl-include=2020.2 \
      scikit-learn=0.23.2 \
-     tensorflow-gpu=2.2.0 && \
-     /opt/conda/bin/conda install -y pytorch=1.6.0 torchvision=0.7.0 -c pytorch && \
-     /opt/conda/bin/conda clean -ya
+     cudatoolkit=11.0 &&\
+     #tensorflow-gpu=2.4.0 && \
+     /opt/conda/bin/conda install -y pytorch=1.7.0 torchvision -c pytorch -c=conda-forge && \
+     /opt/conda/bin/conda clean -y --all
 
 ENV PATH /opt/conda/bin:$PATH
 
